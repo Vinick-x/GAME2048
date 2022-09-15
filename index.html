@@ -20,9 +20,9 @@
     <audio src="./audio/conflict.mp3" id="ice"></audio>
     <audio src="./audio/nomove.mp3" id="nomove"></audio>
     <audio src="./audio/gameover.mp3" id="gameover"></audio>
-    <audio id="bgm" autoplay="autoplay" preload="auto" loop>
+    <!-- <audio id="bgm" autoplay="autoplay" preload="auto" loop>
       <source src="./audio/bgm.mp3" type="audio/mp3" />
-    </audio>
+    </audio> -->
     <header>
       <h1>2048</h1>
       <a href="javascript: newGame(); " id="newGame">New Game</a>
@@ -53,6 +53,7 @@
       <div class="grid-cell" id="grid-cell-3-2"></div>
       <div class="grid-cell" id="grid-cell-3-3"></div>
     </div>
+    <div id="audioBox"></div>
     <div class="modal">
       <div class="dialog">
         <div class="dialog-body">
@@ -70,6 +71,38 @@
       <p>Designed By vinick</p>
     </footer>
   </div>
+  <script type="text/javascript"> 
+    window.onload = function(){
+      function playMusic() {
+        var arr = ["./audio/bgm11.mp3", "./audio/bgm.mp3","./audio/bgm2.mp3", "./audio/bgm3.mp3"]               //把需要播放的歌曲从后往前排，这里已添加两首音乐，可继续添加多个音乐 
+        var myAudio = new Audio() 
+        myAudio.preload = true 
+        myAudio.controls = true 
+        myAudio.src = arr.pop()         //每次读数组最后一个元素 
+        myAudio.autoplay = true
+        myAudio.addEventListener('ended', playEndedHandler, false) 
+        document.addEventListener('keydown', playMusic, false) 
+        document.addEventListener("touchstart", playMusic, false)
+        function playMusic() {
+          myAudio.play() 
+        }
+        document.getElementById("audioBox").appendChild(myAudio) 
+        myAudio.loop = false //禁止循环，否则无法触发ended事件 
+        function playEndedHandler() { 
+          myAudio.src = arr.pop() 
+          myAudio.play() 
+          console.log(arr.length) 
+          if (!arr.length) {
+            arr = ["./audio/bgm11.mp3", "./audio/bgm.mp3","./audio/bgm2.mp3", "./audio/bgm3.mp3"]  
+          }
+          // !arr.length && myAudio.removeEventListener('ended',playEndedHandler,false)//只有一个元素时解除绑定 
+        } 
+      }
+      
+      playMusic()
+    }
+
+  </script> 
 </body>
 
 </html>

@@ -154,8 +154,8 @@ document.addEventListener("touchmove",
 )
 // 添加触摸离开时事件监听器
 document.addEventListener("touchend", function (e) {
-  var bgm = document.getElementById("bgm")
-  bgm.play()
+  // var bgm = document.getElementById("bgm")
+  // bgm.play()
   endX = e.changedTouches[0].pageX
   endY = e.changedTouches[0].pageY
   var deltayX = endX - startX
@@ -200,10 +200,12 @@ document.addEventListener("touchend", function (e) {
 })
 
 
+
 // 监听键盘事件
 $(document).keydown(function (e) {
-  var bgm = document.getElementById("bgm")
-  bgm.play()
+  // var bgm = document.getElementById("bgm")
+  // bgm.play()
+  // playMusic()
   switch (e.keyCode) {
     case 38: //向上w
       // 阻止事件的默认行为，视图过大产生滚动条，窗口会发生移动
