@@ -406,8 +406,39 @@ function isGameOver() {
     gameOver()
   }
 }
+
+function playMusic() {
+  var arr = ["./audio/bgm11.mp3", "./audio/bgm.mp3","./audio/bgm2.mp3", "./audio/bgm3.mp3"]               //把需要播放的歌曲从后往前排，这里已添加两首音乐，可继续添加多个音乐 
+  var myAudio = new Audio() 
+  myAudio.preload = true 
+  myAudio.controls = true 
+  myAudio.src = arr.pop()         //每次读数组最后一个元素 
+  myAudio.autoplay = true
+  myAudio.hidden = true
+  myAudio.addEventListener('ended', playEndedHandler, false) 
+  document.addEventListener('keydown', playMusic, false) 
+  document.addEventListener("touchstart", playMusic, false)
+  function playMusic() {
+    myAudio.play() 
+  }
+  document.getElementById("audioBox").appendChild(myAudio) 
+  myAudio.loop = false //禁止循环，否则无法触发ended事件 
+  function playEndedHandler() { 
+    myAudio.src = arr.pop() 
+    myAudio.play() 
+    console.log(arr.length) 
+    if (!arr.length) {
+      arr = ["./audio/bgm11.mp3", "./audio/bgm.mp3","./audio/bgm2.mp3", "./audio/bgm3.mp3"]  
+    }
+    // !arr.length && myAudio.removeEventListener('ended',playEndedHandler,false)//只有一个元素时解除绑定 
+  } 
+}
+
 function gameOver() {
   $(".modal").css("display", "block")
+}
+function gameWin() {
+  $(".sucess-modal").css("display", "block")
 }
 // 点击离开关闭弹窗，注意window.onload才能执行该函数
 window.onload = function () {
@@ -419,4 +450,5 @@ window.onload = function () {
     $(".modal").css("display", "none")
     newGame()
   })
+  playMusic()
 }
